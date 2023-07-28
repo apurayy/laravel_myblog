@@ -402,6 +402,7 @@
     <!-- custom js for this page -->
     <script src="{{ asset('dashboard_assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/datepicker.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/js/file-upload.js') }}"></script>
     <!-- end custom js for this page -->
 </body>
 
