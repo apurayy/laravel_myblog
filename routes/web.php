@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Categorycontroller;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
@@ -19,3 +20,7 @@ Route::get('/users/delete/{user_id}',[UsersController::class, 'user_delete'])->n
 Route::get('/edit/profile',[UsersController::class, 'edit_profile'])->name('profile.edit');
 Route::post('/profile/update',[UsersController::class, 'profile_update'])->name('profile.update');
 Route::post('/photo/update',[UsersController::class, 'photo_update'])->name('photo.update');
+
+//category
+Route::get('/category', [Categorycontroller::class, 'category'])->name('category');
+Route::post('/category/store', [Categorycontroller::class, 'category_store'])->name('category.store');

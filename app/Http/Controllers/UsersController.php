@@ -10,6 +10,12 @@ use Image;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     function users(){
         $users = User::where('id','!=', Auth::id())->get();
         $total_user = User::count();
@@ -31,6 +37,7 @@ class UsersController extends Controller
                 'name'=>$request->name,
                 'email'=>$request->email,
             ]);
+            return back();
         }else{
             if(Hash::check($request->oldpassword, Auth::user()->password)){
                 User::find(Auth::id())->update([
@@ -46,15 +53,16 @@ class UsersController extends Controller
         }
     }
 
-function photo_update(Request $request){
-    $upload_photo = $request->photo;
-    $extension = $upload_photo->getClientOriginalExtension();
-    $file_name = Auth::id().'.'.$extension;
-    Image::make($upload_photo)->save(public_path('upload/user/'.$file_name));
+    function photo_update(Request $request){
+        $upload_photo = $request->photo;
+        $extension = $upload_photo->getClientOriginalExtension();
+        $file_name = Auth::id().'.'.$extension;
+        Image::make($upload_photo)->save(public_path('upload/user/'.$file_name));
 
-    User::find(Auth::id())->update([
-        'image'=>$file_name,
-    ]);
-}
+        User::find(Auth::id())->update([
+            'image'=>$file_name,
+        ]);
+        return back();
+    }
 
 }

@@ -11,6 +11,7 @@
     <!-- endinject -->
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="{{ asset('dashboard_assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
     <!-- end plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('dashboard_assets/fonts/feather-font/css/iconfont.css') }}">
@@ -47,6 +48,8 @@
                         </a>
                     </li>
                     <li class="nav-item nav-category">web apps</li>
+
+                    {{-- user-list========================== --}}
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#emails" role="button" aria-expanded="false"
                             aria-controls="emails">
@@ -63,6 +66,25 @@
                             </ul>
                         </div>
                     </li>
+
+                    {{-- category-list=================== --}}
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#cat" role="button" aria-expanded="false"
+                            aria-controls="cat">
+                            <i class="link-icon" data-feather="mail"></i>
+                            <span class="link-title">Category</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="cat">
+                            <ul class="nav sub-menu">
+                                <li class="nav-item">
+                                    <a href="{{ route('category') }}" class="nav-link">Add New Category</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -320,43 +342,47 @@
                         <li class="nav-item dropdown nav-profile">
                             <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="https://via.placeholder.com/30x30" alt="profile">
+                                @if (Auth::user()->image == null)
+                                    <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" />
+                                    @else
+                                    <img src="{{ asset('upload/user') }}/{{ Auth::user()->image }}" alt="profile">
+                                @endif
+
+
                             </a>
                             <div class="dropdown-menu" aria-labelledby="profileDropdown">
                                 <div class="dropdown-header d-flex flex-column align-items-center">
                                     <div class="figure mb-3">
-                                        <img src="https://via.placeholder.com/80x80" alt="">
+                                        @if (Auth::user()->image == null)
+                                        <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" />
+                                        @else
+                                        <img src="{{ asset('upload/user') }}/{{ Auth::user()->image }}" alt="profile">
+                                    @endif
                                     </div>
                                     <div class="info text-center">
-                                        <p class="name font-weight-bold mb-0">Amiah Burton</p>
-                                        <p class="email text-muted mb-3">amiahburton@gmail.com</p>
+                                        <p class="name font-weight-bold mb-0">{{ Auth::user()->name }}</p>
+                                        <p class="email text-muted mb-3">{{ Auth::user()->email }}</p>
                                     </div>
                                 </div>
                                 <div class="dropdown-body">
                                     <ul class="profile-nav p-0 pt-3">
+
                                         <li class="nav-item">
-                                            <a href="pages/general/profile.html" class="nav-link">
-                                                <i data-feather="user"></i>
-                                                <span>Profile</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:;" class="nav-link">
+                                            <a href="{{ route('profile.edit') }}" class="nav-link">
                                                 <i data-feather="edit"></i>
                                                 <span>Edit Profile</span>
                                             </a>
                                         </li>
+
                                         <li class="nav-item">
-                                            <a href="javascript:;" class="nav-link">
-                                                <i data-feather="repeat"></i>
-                                                <span>Switch User</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:;" class="nav-link">
+                                            <a href="href="{{ route('logout') }} " class="nav-link" onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
                                                 <i data-feather="log-out"></i>
                                                 <span>Log Out</span>
                                             </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
                                         </li>
                                     </ul>
                                 </div>
@@ -387,6 +413,8 @@
     <script src="{{ asset('dashboard_assets/vendors/core/core.js') }}"></script>
     <!-- endinject -->
     <!-- plugin js for this page -->
+    <script src="{{ asset('dashboard_assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ asset('dashboard_assets/vendors/chartjs/Chart.min.js') }}"></script>
     <script src="{{ asset('dashboard_assets/vendors/jquery.flot/jquery.flot.js') }}"></script>
     <script src="{{ asset('dashboard_assets/vendors/jquery.flot/jquery.flot.resize.js') }}"></script>
@@ -403,6 +431,9 @@
     <script src="{{ asset('dashboard_assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/datepicker.js') }}"></script>
     <script src="{{ asset('dashboard_assets/js/file-upload.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/js/data-table.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @yield('footer_script')
     <!-- end custom js for this page -->
 </body>
 
