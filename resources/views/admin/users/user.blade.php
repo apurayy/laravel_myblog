@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 m-auto">
+            <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="d-flex justify-content-between">User List <span>Total: {{ $total_user }}</span></h3>

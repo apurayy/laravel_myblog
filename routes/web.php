@@ -21,6 +21,12 @@ Route::get('/edit/profile',[UsersController::class, 'edit_profile'])->name('prof
 Route::post('/profile/update',[UsersController::class, 'profile_update'])->name('profile.update');
 Route::post('/photo/update',[UsersController::class, 'photo_update'])->name('photo.update');
 
-//category
+//category===============
 Route::get('/category', [Categorycontroller::class, 'category'])->name('category');
 Route::post('/category/store', [Categorycontroller::class, 'category_store'])->name('category.store');
+Route::get('/category/delete{category_id}', [Categorycontroller::class, 'category_delete'])->name('category.del');
+Route::get('/category/edit/{category_id}', [Categorycontroller::class, 'category_edit'])->name('category.edit');
+Route::post('/category/update', [Categorycontroller::class, 'category_update'])->name('category.update');
+
+
+//tag================
