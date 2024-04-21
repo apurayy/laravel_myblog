@@ -3,6 +3,8 @@
 use App\Http\Controllers\Categorycontroller;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\support\Facades\Auth;
@@ -30,3 +32,9 @@ Route::post('/category/update', [Categorycontroller::class, 'category_update'])-
 
 
 //tag================
+Route::get('/tag',[TagController::class, 'tags'])->name('tags');
+Route::post('/tag/store',[TagController::class, 'tag_store'])->name('tag.store');
+Route::get('/tag/delete/{tag_id}',[TagController::class, 'tag_delete'])->name('tag.del');
+
+//role===========
+Route::get('/role',[RoleController::class, 'role'])->name('role');

@@ -85,6 +85,25 @@
                         </div>
                     </li>
 
+
+                    {{-- tag_list============ --}}
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#tag" role="button" aria-expanded="false"
+                            aria-controls="tag">
+                            <i class="link-icon" data-feather="mail"></i>
+                            <span class="link-title">Tag</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="tag">
+                            <ul class="nav sub-menu">
+                                <li class="nav-item">
+                                    <a href="{{ route('tags') }}" class="nav-link">Add Tag</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
         </nav>
